@@ -1,0 +1,343 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FitnessTracker - Menú Desplegable</title>
+    <!-- Bootstrap 5 CDN -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- FontAwesome (Iconos) -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+
+    <style>
+        /* --- ESTILOS VISUALES (TU DISEÑO FIGMA) --- */
+        
+        :root {
+            --primary-blue: #234E95;
+            --dark-blue: #1A3A70;
+            --bg-grey: #EEEEEE;
+            --card-grey: #A0A0A0;
+            --input-grey: #BDBDBD;
+        }
+
+        body {
+            background-color: var(--bg-grey);
+            font-family: Arial, sans-serif;
+            overflow-x: hidden;
+        }
+
+        /* Cabecera Azul Superior */
+        .header-top {
+            background-color: var(--primary-blue);
+            color: white;
+            padding: 15px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: sticky;
+            top: 0;
+            z-index: 1040; /* Por encima de todo menos el menú */
+        }
+
+        /* Botón hamburguesa transparente */
+        .btn-menu-trigger {
+            background: none;
+            border: none;
+            color: white;
+            cursor: pointer;
+        }
+
+        .brand-title {
+            font-size: 24px;
+            font-weight: bold;
+            color: #8898AA;
+            text-transform: uppercase;
+        }
+
+        /* --- MENÚ DESPLEGABLE (OFFCANVAS) --- */
+        .offcanvas-custom {
+            background-color: var(--primary-blue); /* Tu azul */
+            color: white;
+            width: 280px !important; /* Ancho del menú */
+        }
+        
+        .offcanvas-header .btn-close {
+            filter: invert(1); /* Poner la X de cerrar en blanco */
+        }
+
+        .sidebar-nav a {
+            color: white;
+            text-decoration: none;
+            display: block;
+            padding: 15px 20px;
+            font-size: 18px;
+            transition: 0.2s;
+        }
+        .sidebar-nav a:hover, .sidebar-nav a.active {
+            background-color: rgba(255,255,255,0.2);
+            font-weight: bold;
+        }
+
+        /* --- RESTO DE ESTILOS (IGUAL QUE ANTES) --- */
+        .profile-card {
+            background-color: var(--card-grey);
+            border-radius: 15px;
+            padding: 20px;
+            text-align: center;
+            border: 1px solid #666;
+            box-shadow: 2px 2px 5px rgba(0,0,0,0.2);
+        }
+        
+        .grey-box-input {
+            background-color: var(--input-grey);
+            border: 1px solid #666;
+            height: 40px;
+            margin-bottom: 10px;
+            width: 100%;
+        }
+
+        .feed-card {
+            border-radius: 15px;
+            overflow: hidden;
+            margin-bottom: 20px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.3);
+            border: none;
+        }
+        .feed-header {
+            background-color: var(--primary-blue);
+            color: white;
+            padding: 15px;
+            display: flex;
+            align-items: center;
+        }
+        .feed-body { background-color: #fff; padding: 0; }
+        
+        .map-placeholder {
+            width: 100%;
+            height: 150px;
+            background-color: #e0e0e0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #666;
+        }
+
+        /* Registro */
+        .form-section-title {
+            background-color: var(--input-grey);
+            padding: 10px;
+            font-weight: bold;
+            margin-bottom: 15px;
+            border-radius: 5px;
+            text-transform: uppercase;
+        }
+        .custom-input {
+            background-color: #F0F0F0;
+            border: 1px solid #ccc;
+            margin-bottom: 10px;
+        }
+
+        /* Estadísticas */
+        .stat-card {
+            background-color: #3b6cc9;
+            color: white;
+            border-radius: 0 0 10px 10px;
+            padding: 20px;
+            text-align: center;
+            min-height: 300px;
+        }
+        .stat-header {
+            padding: 10px;
+            font-weight: bold;
+            text-align: center;
+            text-transform: uppercase;
+            color: black;
+        }
+        .header-yellow { background-color: #FFD700; }
+        .header-grey { background-color: #D3D3D3; }
+        .header-brown { background-color: #CD853F; }
+
+        .donut-chart {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            border: 10px solid #555;
+            border-top-color: #FFD700;
+            margin: 0 auto 20px auto;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+
+<!-- 1. CABECERA CON BOTÓN TRIGGER -->
+<div class="header-top">
+    <!-- Botón que abre el menú -->
+    <button class="btn-menu-trigger" type="button" data-bs-toggle="offcanvas" data-bs-target="#sidebarMenu" aria-controls="sidebarMenu">
+        <i class="fas fa-bars fa-2x"></i>
+    </button>
+    
+    <span class="brand-title">FitnessTracker</span>
+    <i class="fas fa-user-circle fa-2x"></i>
+</div>
+
+<!-- 2. EL MENÚ DESPLEGABLE (OFFCANVAS) -->
+<div class="offcanvas offcanvas-start offcanvas-custom" tabindex="-1" id="sidebarMenu" aria-labelledby="sidebarMenuLabel">
+    <div class="offcanvas-header">
+        <h5 class="offcanvas-title" id="sidebarMenuLabel">
+            <i class="fas fa-running me-2"></i> Menú
+        </h5>
+        <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+    </div>
+    <div class="offcanvas-body p-0">
+        <div class="text-center mb-4 mt-2">
+            <i class="fas fa-running fa-3x mb-2"></i>
+            <div>FitnessTracker</div>
+        </div>
+        
+        <!-- Navegación -->
+        <div class="nav flex-column nav-pills sidebar-nav" id="v-pills-tab" role="tablist" aria-orientation="vertical">
+            <a class="nav-link active" id="v-pills-home-tab" data-bs-toggle="pill" href="#v-pills-home" role="tab" onclick="closeMenu()">Perfil / Home</a>
+            <a class="nav-link" id="v-pills-register-tab" data-bs-toggle="pill" href="#v-pills-register" role="tab" onclick="closeMenu()">Registrar actividad</a>
+            <a class="nav-link" href="#" onclick="closeMenu()">Desafios</a>
+            <a class="nav-link" id="v-pills-stats-tab" data-bs-toggle="pill" href="#v-pills-stats" role="tab" onclick="closeMenu()">Estadisticas</a>
+            <a class="nav-link" href="#" onclick="closeMenu()">Asistencia</a>
+        </div>
+    </div>
+</div>
+
+<!-- 3. CONTENIDO PRINCIPAL -->
+<div class="container-fluid p-4">
+    
+    <div class="tab-content" id="v-pills-tabContent">
+        
+        <!-- PANTALLA 1: PERFIL Y FEED -->
+        <div class="tab-pane fade show active" id="v-pills-home" role="tabpanel">
+            <div class="row">
+                <div class="col-md-4 mb-4">
+                    <div class="profile-card">
+                        <i class="fas fa-user fa-4x mb-3"></i>
+                        <h3>Nombre del usuario</h3>
+                        <div class="d-flex justify-content-between px-3 my-3">
+                            <div><small>siguiendo</small><br><strong>567</strong></div>
+                            <div><small>seguidores</small><br><strong>14k</strong></div>
+                            <div><small>Actividades</small><br><strong>1287</strong></div>
+                        </div>
+                        
+                        <h6 class="text-start mt-4">ACTIVIDADES RECIENTES</h6>
+                        <div class="text-start mb-2">NOMBRE ACTIVIDAD</div>
+                        <div class="grey-box-input"></div>
+                        
+                        <div class="text-start mt-3 mb-2">NOMBRE ACTIVIDAD</div>
+                        <div class="grey-box-input"></div>
+                    </div>
+                </div>
+
+                <div class="col-md-8">
+                    <!-- Tarjetas de ejemplo -->
+                    <div class="feed-card">
+                        <div class="feed-header">
+                            <img src="https://via.placeholder.com/40" class="rounded-circle me-3">
+                            <div><strong>ercanelito77</strong><br><small>18/12/2003</small></div>
+                            <div class="ms-auto">Nombre actividad</div>
+                        </div>
+                        <div class="feed-body"><div class="map-placeholder"></div></div>
+                    </div>
+                    
+                    <div class="feed-card">
+                        <div class="feed-header">
+                            <img src="https://via.placeholder.com/40" class="rounded-circle me-3">
+                            <div><strong>ercanelito77</strong><br><small>18/12/2003</small></div>
+                            <div class="ms-auto">Nombre actividad</div>
+                        </div>
+                        <div class="feed-body"><div class="map-placeholder"></div></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- PANTALLA 2: REGISTRO -->
+        <div class="tab-pane fade" id="v-pills-register" role="tabpanel">
+            <h4 class="mb-4">INICIO / REGISTRAR AVTIVIDAD</h4>
+            <div class="row">
+                <div class="col-md-5">
+                    <div class="form-section-title text-center">NOMBRE DE LA ACTIVIDAD</div>
+                    <div class="row mb-3">
+                        <div class="col-6"><input type="text" class="form-control custom-input" value="18/12/2003" readonly></div>
+                        <div class="col-6"><input type="text" class="form-control custom-input" placeholder="TIPO ACTIVIDAD"></div>
+                    </div>
+                    <input type="text" class="form-control custom-input mb-3" placeholder="Descripción" style="height: 60px;">
+                    
+                    <div class="row mb-2">
+                        <div class="col-8"><input type="text" class="form-control custom-input" placeholder="Nombre ejercicio"></div>
+                        <div class="col-4"><input type="text" class="form-control custom-input" placeholder="Nº series"></div>
+                    </div>
+                </div>
+                <div class="col-md-7">
+                    <div class="card p-3 mb-4 shadow-sm text-center">
+                       [Aquí iría el calendario]
+                    </div>
+                    <div class="map-placeholder" style="height: 250px; border-radius: 10px;">
+                        <i class="fas fa-map-marked-alt fa-3x"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- PANTALLA 3: ESTADÍSTICAS -->
+        <div class="tab-pane fade" id="v-pills-stats" role="tabpanel">
+            <h4 class="mb-4">INICIO / ESTADISTICAS</h4>
+            <div class="row">
+                <div class="col-md-4 mb-4">
+                    <div class="header-grey stat-header">ESTADISTICA MENSUAL</div>
+                    <div class="stat-card">
+                        <div class="donut-chart" style="border-top-color: #ddd;">32%</div>
+                        <div class="text-start mt-4 ps-4">
+                            <div>-Desafio <i class="fas fa-check-circle text-info"></i></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4 mb-4">
+                    <div class="header-yellow stat-header">ESTADISTICAS ANUAL</div>
+                    <div class="stat-card">
+                        <div class="donut-chart">32%</div>
+                        <div class="text-start mt-4 ps-4">
+                            <div>-Desafio <i class="fas fa-check-circle text-info"></i></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4 mb-4">
+                    <div class="header-brown stat-header">ESTADISTICA SEMANAL</div>
+                    <div class="stat-card">
+                        <div class="donut-chart" style="border-top-color: #8B4513;">32%</div>
+                        <div class="text-start mt-4 ps-4">
+                            <div>-Desafio <i class="fas fa-check-circle text-info"></i></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<!-- Scripts de Bootstrap -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+<!-- Script pequeño para cerrar el menú al hacer clic en una opción (mejora la UX en móvil) -->
+<script>
+    function closeMenu() {
+        const menu = document.getElementById('sidebarMenu');
+        const bsOffcanvas = bootstrap.Offcanvas.getInstance(menu);
+        if (bsOffcanvas) {
+            bsOffcanvas.hide();
+        }
+    }
+</script>
+
+</body>
+</html>
