@@ -1,0 +1,424 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FitnessTracker - Diseño Oficial</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+        /* --- ESTILOS VISUALES (Basados en prueba1.html) --- */
+        :root {
+            --primary-blue: #234E95;
+            --dark-blue: #1A3A70;
+            --bg-grey: #EEEEEE;
+            --card-grey: #f8f9fa; /* Ligeramente más claro para mejor lectura */
+            --input-grey: #e9ecef;
+            --accent-yellow: #FFD700;
+        }
+
+        body {
+            background-color: var(--bg-grey);
+            font-family: 'Segoe UI', Arial, sans-serif;
+            padding-top: 70px; /* Espacio para el header fijo */
+        }
+
+        /* 1. Cabecera Azul Superior (Fija) */
+        .header-top {
+            background-color: var(--primary-blue);
+            color: white;
+            padding: 10px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 70px;
+            z-index: 1040;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+        }
+
+        .btn-menu-trigger {
+            background: none;
+            border: none;
+            color: white;
+            font-size: 1.5rem;
+            cursor: pointer;
+            padding: 5px;
+            transition: 0.2s;
+        }
+        .btn-menu-trigger:hover { transform: scale(1.1); }
+
+        .brand-title {
+            font-size: 20px;
+            font-weight: bold;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+        }
+
+        /* 2. Menú Desplegable (Offcanvas) */
+        .offcanvas-custom {
+            background-color: var(--primary-blue);
+            color: white;
+            width: 280px !important;
+        }
+        
+        .offcanvas-header .btn-close { filter: invert(1); }
+
+        /* Estilo de los enlaces del menú para que funcionen como pestañas */
+        .sidebar-nav .nav-link {
+            color: rgba(255,255,255,0.8);
+            font-size: 18px;
+            padding: 15px 20px;
+            border-radius: 0;
+            border-left: 5px solid transparent;
+            transition: all 0.2s;
+            cursor: pointer;
+        }
+        
+        .sidebar-nav .nav-link:hover {
+            background-color: rgba(255,255,255,0.1);
+            color: white;
+        }
+
+        .sidebar-nav .nav-link.active {
+            background-color: rgba(255,255,255,0.2);
+            color: white;
+            font-weight: bold;
+            border-left-color: var(--accent-yellow); /* Detalle visual activo */
+        }
+
+        /* 3. Tarjetas y Elementos */
+        .profile-card {
+            background-color: white;
+            border-radius: 15px;
+            padding: 25px;
+            text-align: center;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+            border-top: 5px solid var(--primary-blue);
+        }
+
+        .feed-card {
+            background: white;
+            border-radius: 15px;
+            overflow: hidden;
+            margin-bottom: 20px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+        }
+        
+        .feed-header {
+            background-color: white;
+            padding: 15px;
+            display: flex;
+            align-items: center;
+            border-bottom: 1px solid #eee;
+        }
+
+        .stat-card {
+            background-color: white;
+            border-radius: 0 0 10px 10px;
+            padding: 20px;
+            text-align: center;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            height: 100%;
+        }
+        
+        .stat-header {
+            padding: 10px;
+            font-weight: bold;
+            text-align: center;
+            text-transform: uppercase;
+            color: #333;
+            border-radius: 10px 10px 0 0;
+        }
+        
+        /* Colores específicos de estadísticas */
+        .header-yellow { background-color: #FFD700; }
+        .header-grey { background-color: #D3D3D3; }
+        .header-brown { background-color: #CD853F; }
+
+        /* Gráfico Circular CSS */
+        .donut-chart {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            border: 8px solid #eee;
+            margin: 0 auto 15px auto;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+            font-weight: bold;
+            color: var(--primary-blue);
+        }
+    </style>
+</head>
+<body>
+
+<header class="header-top">
+    <button class="btn-menu-trigger" type="button" data-bs-toggle="offcanvas" data-bs-target="#sidebarMenu">
+        <i class="fas fa-bars"></i>
+    </button>
+    
+    <div class="brand-title">FitnessTracker</div>
+    
+    <div class="rounded-circle bg-white text-primary d-flex align-items-center justify-content-center" style="width: 40px; height: 40px;">
+        <i class="fas fa-user"></i>
+    </div>
+</header>
+
+<div class="offcanvas offcanvas-start offcanvas-custom" tabindex="-1" id="sidebarMenu">
+    <div class="offcanvas-header">
+        <h5 class="offcanvas-title"><i class="fas fa-running me-2"></i>MENÚ</h5>
+        <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+    </div>
+    <div class="offcanvas-body p-0">
+        <div class="nav flex-column nav-pills sidebar-nav" id="v-pills-tab" role="tablist">
+            
+            <button class="nav-link active text-start" id="tab-perfil-btn" data-bs-toggle="pill" data-bs-target="#tab-perfil" type="button" role="tab" onclick="closeMenu()">
+                <i class="fas fa-home me-3"></i> Perfil / Feed
+            </button>
+
+            <button class="nav-link text-start" id="tab-registro-btn" data-bs-toggle="pill" data-bs-target="#tab-registro" type="button" role="tab" onclick="closeMenu()">
+                <i class="fas fa-plus-circle me-3"></i> Registrar Actividad
+            </button>
+
+            <button class="nav-link text-start" id="tab-desafios-btn" data-bs-toggle="pill" data-bs-target="#tab-desafios" type="button" role="tab" onclick="closeMenu()">
+                <i class="fas fa-trophy me-3"></i> Desafíos
+            </button>
+
+            <button class="nav-link text-start" id="tab-stats-btn" data-bs-toggle="pill" data-bs-target="#tab-stats" type="button" role="tab" onclick="closeMenu()">
+                <i class="fas fa-chart-pie me-3"></i> Estadísticas
+            </button>
+            
+        </div>
+    </div>
+</div>
+
+<div class="container py-4">
+    <div class="tab-content" id="v-pills-tabContent">
+
+        <div class="tab-pane fade show active" id="tab-perfil" role="tabpanel">
+            <div class="row">
+                <div class="col-lg-4 mb-4">
+                    <div class="profile-card">
+                        <div class="position-relative d-inline-block mb-3">
+                            <img src="https://via.placeholder.com/100" class="rounded-circle border border-3 border-white shadow-sm" alt="Foto">
+                        </div>
+                        <h4 class="fw-bold mb-1">@usuario_fit</h4>
+                        <p class="text-muted small mb-3">"Preparando maratón"</p> <div class="d-flex justify-content-center gap-3 mb-4 text-center">
+                            <div><strong class="d-block fs-5">124</strong><small class="text-muted">Seguidores</small></div>
+                            <div><strong class="d-block fs-5">56</strong><small class="text-muted">Seguidos</small></div>
+                        </div>
+
+                        <div class="d-grid gap-2">
+                            <button class="btn btn-outline-primary btn-sm">Editar Perfil</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-lg-8">
+                    <h5 class="mb-3 text-muted fw-bold">ACTIVIDAD RECIENTE</h5>
+                    
+                    <div class="feed-card">
+                        <div class="feed-header">
+                            <img src="https://via.placeholder.com/40" class="rounded-circle me-3">
+                            <div>
+                                <div class="fw-bold">Juan Pérez</div>
+                                <small class="text-muted">Hace 2 horas • Correr</small>
+                            </div>
+                        </div>
+                        <div class="p-3">
+                            <h5 class="fw-bold">Entrenamiento matutino 🏃‍♂️</h5>
+                            <div class="row g-2 mt-2">
+                                <div class="col-4 border-end text-center">
+                                    <small class="d-block text-muted">Distancia</small>
+                                    <strong>5.2 km</strong>
+                                </div>
+                                <div class="col-4 border-end text-center">
+                                    <small class="d-block text-muted">Tiempo</small>
+                                    <strong>25 min</strong>
+                                </div>
+                                <div class="col-4 text-center">
+                                    <small class="d-block text-muted">Ritmo</small>
+                                    <strong>5'00"</strong>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="bg-light p-2 border-top d-flex justify-content-around">
+                            <button class="btn btn-sm btn-link text-decoration-none text-secondary"><i class="far fa-heart"></i> Like</button>
+                            <button class="btn btn-sm btn-link text-decoration-none text-secondary"><i class="far fa-comment"></i> Comentar</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="tab-pane fade" id="tab-registro" role="tabpanel">
+            <h4 class="mb-4 text-uppercase fw-bold text-primary">Nueva Actividad</h4>
+            
+            <div class="row justify-content-center">
+                <div class="col-lg-8">
+                    <div class="card border-0 shadow-sm p-4">
+                        <div class="mb-4">
+                            <label class="form-label fw-bold">Tipo de Actividad</label>
+                            <select class="form-select custom-input" id="tipoActividad" onchange="toggleCampos()">
+                                <option value="funcional">Entrenamiento Funcional (Gym)</option>
+                                <option value="cardio">Cardio (Correr / Andar)</option>
+                            </select>
+                        </div>
+
+                        <div id="campos-funcional">
+                            <div class="mb-3">
+                                <label class="form-label">Músculo (Predefinido)</label>
+                                <select class="form-select custom-input">
+                                    <option>Pecho</option>
+                                    <option>Espalda</option>
+                                    <option>Pierna</option>
+                                </select>
+                            </div>
+                            <div class="row g-2 mb-3">
+                                <div class="col-6">
+                                    <input type="number" class="form-control custom-input" placeholder="Series">
+                                </div>
+                                <div class="col-6">
+                                    <input type="number" class="form-control custom-input" placeholder="Peso (kg)">
+                                </div>
+                            </div>
+                        </div>
+
+                        <div id="campos-cardio" style="display:none;">
+                            <div class="row g-2 mb-3">
+                                <div class="col-6">
+                                    <label class="form-label">Distancia (km)</label>
+                                    <input type="number" class="form-control custom-input">
+                                </div>
+                                <div class="col-6">
+                                    <label class="form-label">Tiempo (min)</label>
+                                    <input type="number" class="form-control custom-input">
+                                </div>
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label">Sensación (1-10)</label> <input type="range" class="form-range" min="1" max="10" step="1">
+                                <div class="d-flex justify-content-between text-muted small">
+                                    <span>Muy cansado</span>
+                                    <span>Genial</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="mb-3">
+                            <textarea class="form-control custom-input" rows="3" placeholder="Descripción o notas..."></textarea>
+                        </div>
+
+                        <button class="btn btn-primary w-100 py-2 fs-5">GUARDAR</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="tab-pane fade" id="tab-desafios" role="tabpanel">
+            <h4 class="mb-4 text-uppercase fw-bold text-primary">Comunidad y Retos</h4>
+            
+            <div class="row">
+                <div class="col-md-8 mb-3">
+                    <div class="card border-0 shadow-sm h-100">
+                        <div class="card-header bg-white fw-bold py-3">
+                            <i class="fas fa-list-ol text-warning me-2"></i> RANKING MENSUAL (TOP 25)
+                        </div>
+                        <div class="card-body p-0">
+                            <ul class="list-group list-group-flush">
+                                <li class="list-group-item d-flex justify-content-between align-items-center py-3">
+                                    <span><span class="badge bg-warning text-dark me-3 rounded-pill">1</span> @fit_master</span>
+                                    <span class="fw-bold text-primary">15,400 pts</span>
+                                </li>
+                                <li class="list-group-item d-flex justify-content-between align-items-center py-3 bg-light border-start border-5 border-primary">
+                                    <span><span class="badge bg-primary me-3 rounded-pill">12</span> @tu_usuario (Tú)</span>
+                                    <span class="fw-bold text-dark">8,200 pts</span>
+                                </li>
+                                <li class="list-group-item d-flex justify-content-between align-items-center py-3">
+                                    <span><span class="badge bg-secondary me-3 rounded-pill">13</span> @runner_01</span>
+                                    <span class="fw-bold text-secondary">8,150 pts</span>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="col-md-4 mb-3">
+                    <div class="card bg-primary text-white p-4 h-100 text-center">
+                        <i class="fas fa-vote-yea fa-3x mb-3"></i>
+                        <h5>Encuesta Mensual</h5>
+                        <p class="small">Vota por el próximo desafío de la comunidad.</p>
+                        <button class="btn btn-light text-primary w-100 mt-auto">Votar Ahora</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="tab-pane fade" id="tab-stats" role="tabpanel">
+            <h4 class="mb-4 text-uppercase fw-bold text-primary">Tus Métricas</h4>
+            
+            <div class="row g-4">
+                <div class="col-md-4">
+                    <div class="header-grey stat-header">MENSUAL</div>
+                    <div class="stat-card">
+                        <div class="donut-chart" style="border-top-color: var(--primary-blue);">32%</div>
+                        <h5 class="fw-bold">Objetivo Km</h5>
+                        <p class="text-muted small">Has recorrido 32km de tu meta de 100km.</p>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="header-yellow stat-header">ANUAL</div>
+                    <div class="stat-card">
+                        <div class="donut-chart" style="border-top-color: #FFD700;">65%</div>
+                        <h5 class="fw-bold">Días Entrenados</h5>
+                        <p class="text-muted small">Mantienes una buena racha este año.</p>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="header-brown stat-header">SEMANAL</div>
+                    <div class="stat-card">
+                        <div class="donut-chart" style="border-top-color: #CD853F;">80%</div>
+                        <h5 class="fw-bold">Fuerza</h5>
+                        <p class="text-muted small">Casi completas tu rutina de fuerza.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+    // Script para cerrar el menú automáticamente al hacer click en una opción (mejora UX móvil)
+    function closeMenu() {
+        const menu = document.getElementById('sidebarMenu');
+        const bsOffcanvas = bootstrap.Offcanvas.getInstance(menu);
+        if (bsOffcanvas) {
+            bsOffcanvas.hide();
+        }
+    }
+
+    // Script simple para alternar campos de registro (Funcional vs Cardio)
+    function toggleCampos() {
+        const tipo = document.getElementById('tipoActividad').value;
+        const divFuncional = document.getElementById('campos-funcional');
+        const divCardio = document.getElementById('campos-cardio');
+
+        if (tipo === 'funcional') {
+            divFuncional.style.display = 'block';
+            divCardio.style.display = 'none';
+        } else {
+            divFuncional.style.display = 'none';
+            divCardio.style.display = 'block';
+        }
+    }
+</script>
+
+</body>
+</html>
