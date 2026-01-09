@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FitnessTracker - Inicio</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        :root { --primary-color: #2A5199; --bg-light: #f0f2f5; }
+        body { background-color: var(--bg-light); font-family: 'Segoe UI', sans-serif; }
+        .navbar-custom { background-color: var(--primary-color); }
+        .navbar-brand, .nav-link { color: white !important; }
+        .nav-link.active { font-weight: 700; border-bottom: 2px solid white; }
+        .profile-card, .post-card { border: none; border-radius: 15px; background: white; }
+        .stat-badge { background: #eef2f7; border-radius: 10px; padding: 10px; text-align: center; }
+        .stat-value { color: var(--primary-color); font-weight: 700; }
+        .section-title { font-weight: 700; border-left: 5px solid var(--primary-color); padding-left: 15px; }
+        .btn-add { background-color: var(--primary-color); color: white; border-radius: 25px; font-weight: 600; padding: 10px 20px; text-decoration: none; display: inline-block;}
+        .btn-add:hover { background-color: #1e3c72; color: white; }
+    </style>
+</head>
+<body>
+
+    <nav class="navbar navbar-expand-lg navbar-custom sticky-top">
+        <div class="container">
+                        <a class="navbar-brand fw-bold" href="index.html"><i class="fas fa-heartbeat me-2"></i>FitnessTracker</a>
+
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item"><a class="nav-link active" href="index.html">Inicio</a></li>
+                    <li class="nav-item"><a class="nav-link" href="registro.html">Registrar</a></li>
+                    <li class="nav-item"><a class="nav-link" href="estadisticas.html">Estadísticas</a></li>
+                    <li class="nav-item"><a class="nav-link" href="perfil.html">Perfil</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container py-4">
+        <div class="row g-4">
+            <div class="col-lg-4">
+                <div class="card profile-card p-4 shadow-sm mb-4">
+                    <div class="text-center mb-3">
+                        <div class="rounded-circle mx-auto mb-2" style="width: 80px; height: 80px; background: var(--primary-color); color: white; display: flex; align-items: center; justify-content: center; font-size: 2rem;">
+                            <i class="fas fa-user"></i>
+                        </div>
+                        <h4 class="fw-bold mb-0">Juan Pérez</h4>
+                        <p class="text-muted small">"Preparando maratón"</p>
+                    </div>
+                    <div class="row g-2 mb-4">
+                        <div class="col-6"><div class="stat-badge"><small class="d-block text-muted">Peso</small><span class="stat-value">78 kg</span></div></div>
+                        <div class="col-6"><div class="stat-badge"><small class="d-block text-muted">Grasa</small><span class="stat-value">18%</span></div></div>
+                    </div>
+                    <h6 class="fw-bold small text-muted">Progreso Semanal</h6>
+                    <canvas id="miniChart" height="150"></canvas>
+                    <div class="d-grid mt-4">
+                        <a href="registro.html" class="btn btn-add text-center"><i class="fas fa-plus me-2"></i>Nueva Actividad</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-8">
+                <h4 class="section-title mb-4">Actividad Reciente</h4>
+                
+                <div class="card post-card shadow-sm mb-3">
+                    <div class="card-body">
+                        <div class="d-flex align-items-center mb-3">
+                            <div class="bg-primary text-white rounded-circle p-2 me-3" style="width:40px;height:40px;display:flex;align-items:center;justify-content:center;">Tú</div>
+                            <div><h6 class="mb-0 fw-bold">Has completado una <span class="text-primary">Carrera</span></h6><small class="text-muted">Hace 2 horas</small></div>
+                        </div>
+                        <div class="row bg-light rounded p-3 mx-0">
+                            <div class="col-4 text-center"><strong>8.5 km</strong><br><small class="text-muted">Distancia</small></div>
+                            <div class="col-4 text-center border-start"><strong>5:15</strong><br><small class="text-muted">Ritmo</small></div>
+                            <div class="col-4 text-center border-start"><strong>8/10</strong><br><small class="text-muted">Sensación</small></div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card post-card shadow-sm mb-3">
+                    <div class="card-body">
+                        <div class="d-flex align-items-center mb-3">
+                            <div class="bg-secondary text-white rounded-circle p-2 me-3" style="width:40px;height:40px;display:flex;align-items:center;justify-content:center;">MG</div>
+                            <div><h6 class="mb-0 fw-bold">María G. <span class="text-muted fw-normal">entrenó Pierna</span></h6><small class="text-muted">Hoy 10:30</small></div>
+                        </div>
+                        <p class="mb-2">"¡Increíble sesión de sentadillas hoy! Subiendo pesos."</p>
+                        <div class="badge bg-secondary mb-3">Fuerza / Musculación</div>
+                        <ul class="list-group list-group-flush small bg-light rounded">
+                            <li class="list-group-item bg-transparent d-flex justify-content-between"><span>Sentadillas</span> <span>4 series x 60kg</span></li>
+                            <li class="list-group-item bg-transparent d-flex justify-content-between"><span>Prensa</span> <span>3 series x 120kg</span></li>
+                        </ul>
+                        <div class="d-flex border-top pt-3 mt-3">
+                            <button class="btn btn-sm text-primary fw-bold"><i class="far fa-thumbs-up me-1"></i>Motivar</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script>
+        const ctx = document.getElementById('miniChart').getContext('2d');
+        new Chart(ctx, {
+            type: 'line',
+            data: {
+                labels: ['L','M','X','J','V','S','D'],
+                datasets: [{ data: [300, 450, 0, 550, 400, 700, 200], borderColor: '#2A5199', tension: 0.4, fill: true, backgroundColor: 'rgba(42,81,153,0.1)' }]
+            },
+            options: { plugins: { legend: {display: false} }, scales: { y: {display: false}, x: {grid: {display: false}} } }
+        });
+        // --- LÓGICA DE CARGA DE DATOS (LO NUEVO) ---
+    document.addEventListener('DOMContentLoaded', () => {
+        // 1. Recuperar datos
+        const historial = JSON.parse(localStorage.getItem('myFitnessData')) || [];
+        const lista = document.getElementById('workoutList');
+        
+        if (historial.length > 0) {
+            lista.innerHTML = ''; // Limpiar lista de ejemplo
+            
+            // 2. Generar HTML para cada entrenamiento guardado (Máx 5 recientes)
+            historial.slice(0, 5).forEach(entreno => {
+                const item = document.createElement('div');
+                item.className = 'list-group-item px-4 py-3 border-bottom animate__animated animate__fadeIn';
+                
+                // Color de icono según tipo
+                let bgClass = "bg-primary";
+                if(entreno.categoria === 'Caminata') bgClass = "bg-success";
+                if(entreno.categoria === 'Fuerza') bgClass = "bg-secondary";
+
+                item.innerHTML = `
+                    <div class="d-flex w-100 justify-content-between align-items-center">
+                        <div class="d-flex align-items-center">
+                            <div class="${bgClass} bg-opacity-10 p-2 rounded me-3 text-primary">
+                                <i class="fas ${entreno.icono} ${bgClass.replace('bg-', 'text-')}"></i>
+                            </div>
+                            <div>
+                                <h6 class="mb-0 fw-bold">${entreno.categoria}</h6>
+                                <small class="text-muted">${entreno.fecha} - ${entreno.resumen}</small>
+                            </div>
+                        </div>
+                        <span class="badge bg-success rounded-pill">${entreno.calorias} kcal</span>
+                    </div>
+                `;
+                lista.appendChild(item);
+            });
+            
+            // 3. Actualizar tarjetas de resumen (KPIs)
+            // Calcular total calorías
+            const totalCals = historial.reduce((sum, item) => sum + item.calorias, 0);
+            // Actualizar el número en el DOM (buscamos por texto o clase si es posible, o hardcodeamos el ID en el HTML)
+            // Para que esto funcione perfecto, añade id="totalCalories" a la etiqueta <h3> de calorías en index.html
+            // document.getElementById('totalCalories').innerText = totalCals.toLocaleString(); 
+        }
+    });
+    </script>
+</body>
+</html>
