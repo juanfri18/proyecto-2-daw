@@ -25,20 +25,23 @@
 <body>
 
     <nav class="navbar navbar-expand-lg navbar-custom sticky-top">
-        <div class="container">
+        <div class="container-fluid px-4">
             <a class="navbar-brand fw-bold" href="index.html"><i class="fas fa-heartbeat me-2"></i>FitnessTracker</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav ms-auto">
                     <li class="nav-item"><a class="nav-link" href="index.html">Inicio</a></li>
                     <li class="nav-item"><a class="nav-link" href="registro.html">Registrar</a></li>
                     <li class="nav-item"><a class="nav-link" href="estadisticas.html">Estadísticas</a></li>
-                    <li class="nav-item"><a class="nav-link active" href="perfil.html">Perfil</a></li>
+                    <li class="nav-item"><a class="nav-link" href="perfil.html">Perfil</a></li>
                 </ul>
             </div>
         </div>
     </nav>
 
-    <div class="container py-5">
+    <div class="container-fluid px-4">
         <div class="row justify-content-center">
             <div class="col-lg-9">
                 <div class="card card-profile shadow-sm bg-white">
@@ -46,9 +49,9 @@
                     <div class="card-body p-4">
                         <div class="avatar-container mb-4">
                             <img src="https://via.placeholder.com/120" id="preview" class="profile-img">
-                            <label for="fileUp" class="btn-camera"><i class="fas fa-camera text-primary"></i></label>
+                            
                             <input type="file" id="fileUp" hidden onchange="loadImg(event)">
-                            <h3 class="mt-2 fw-bold mb-0">Juan Pérez</h3>
+                            <h3 class="mt-2 fw-bold mb-0">Juan Pérez</h3><label for="fileUp" class="btn-camera"><i class="fas fa-camera text-primary"></i></label>
                             <p class="text-muted fst-italic" id="bioDisplay">"Preparando maratón"</p>
                         </div>
 
