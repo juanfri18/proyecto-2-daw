@@ -120,7 +120,7 @@
         if (historial.length > 0) {
             lista.innerHTML = ''; // Limpiar lista de ejemplo
             
-            // 2. Generar HTML para cada entrenamiento guardado (Máx 5 recientes)
+            // 2. Generar HTML para cada entrenamiento guardado 
             historial.slice(0, 5).forEach(entreno => {
                 const item = document.createElement('div');
                 item.className = 'list-group-item px-4 py-3 border-bottom animate__animated animate__fadeIn';
@@ -150,7 +150,7 @@
             // 3. Actualizar tarjetas de resumen (KPIs)
             // Calcular total calorías
             const totalCals = historial.reduce((sum, item) => sum + item.calorias, 0);
-            // Actualizar el número en el DOM (buscamos por texto o clase si es posible, o hardcodeamos el ID en el HTML)
+            // Actualizar el número en el DOM 
             // Para que esto funcione perfecto, añade id="totalCalories" a la etiqueta <h3> de calorías en index.html
             // document.getElementById('totalCalories').innerText = totalCals.toLocaleString(); 
         }

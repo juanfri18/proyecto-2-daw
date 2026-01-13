@@ -128,7 +128,7 @@
 
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script>
-        // Fuerza (Línea)
+        // Fuerza 
         new Chart(document.getElementById('strengthChart'), {
             type: 'line',
             data: {
@@ -137,7 +137,7 @@
             }, options: { responsive: true, maintainAspectRatio: false }
         });
 
-        // Muscular (Radar/Donut)
+        // Muscular 
         new Chart(document.getElementById('radarChart'), {
             type: 'doughnut',
             data: {
@@ -146,7 +146,7 @@
             }, options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { position: 'bottom' } } }
         });
 
-        // Cardio (Mixto)
+        // Cardio 
         new Chart(document.getElementById('cardioChart'), {
             type: 'bar',
             data: {
