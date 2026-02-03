@@ -38,7 +38,7 @@ if (!isset($_SESSION['user_id'])) {
                 <ul class="navbar-nav ms-auto">
                     <li class="nav-item"><a class="nav-link" href="index.php">Inicio</a></li>
                     <li class="nav-item"><a class="nav-link active" href="registro.php">Registrar</a></li>
-                    <li class="nav-item"><a class="nav-link" href="estadisticas.html">Estadísticas</a></li>
+                    <li class="nav-item"><a class="nav-link" href="estadisticas.php">Estadísticas</a></li>
                     <li class="nav-item"><a class="nav-link" href="perfil.html">Perfil</a></li>
                 </ul>
             </div>
@@ -54,11 +54,15 @@ if (!isset($_SESSION['user_id'])) {
                     <form id="fitnessForm" action="guardar_entreno.php" method="POST" class="needs-validation" novalidate>
                         
                         <div class="row g-3 mb-4">
-                            <div class="col-md-6">
+                            <div class="col-md-4">
                                 <label class="form-label fw-bold">Fecha</label>
                                 <input type="date" class="form-control" id="date" name="fecha" required>
                             </div>
-                            <div class="col-md-6">
+                            <div class="col-md-4">
+                                <label class="form-label fw-bold">Duración (min)</label>
+                                <input type="number" class="form-control" id="time" name="tiempo" placeholder="Minutos" required oninput="pace()">
+                            </div>
+                            <div class="col-md-4">
                                 <label class="form-label fw-bold">Módulo / Categoría</label>
                                 <select class="form-select border-primary fw-bold" id="mainCat" name="modulo" required onchange="toggleModule()">
                                     <option value="" disabled selected>Seleccione...</option>
@@ -82,7 +86,7 @@ if (!isset($_SESSION['user_id'])) {
                                     </select>
                                 </div>
                                 <div class="col-md-6">
-                                    <label class="small fw-bold">Ejercicio (Predefinido)</label>
+                                    <label class="small fw-bold">Ejercicio</label>
                                     <select class="form-select" id="exList" name="ejercicio">
                                         <option>Seleccione grupo primero...</option>
                                     </select>
@@ -99,9 +103,8 @@ if (!isset($_SESSION['user_id'])) {
                         <div id="sec-cardio" class="form-section animate__animated animate__fadeIn">
                             <h5 id="cardioTitle" class="mb-3"><i class="fas fa-running me-2"></i>Detalle Cardio</h5>
                             <div class="row g-3 mb-3">
-                                <div class="col-md-4"><label class="small fw-bold">Distancia (km)</label><input type="number" step="0.01" class="form-control" id="dist" name="distancia" oninput="pace()"></div>
-                                <div class="col-md-4"><label class="small fw-bold">Tiempo (min)</label><input type="number" class="form-control" id="time" name="tiempo" oninput="pace()"></div>
-                                <div class="col-md-4"><label class="small fw-bold">Altitud (m)</label><input type="number" class="form-control" name="altitud" placeholder="Desnivel"></div>
+                                <div class="col-md-6"><label class="small fw-bold">Distancia (km)</label><input type="number" step="0.01" class="form-control" id="dist" name="distancia" oninput="pace()"></div>
+                                <div class="col-md-6"><label class="small fw-bold">Altitud (m)</label><input type="number" class="form-control" name="altitud" placeholder="Desnivel"></div>
                             </div>
                             
                             <div class="alert alert-light border text-center fw-bold mb-3">

@@ -60,7 +60,7 @@ try {
                 <ul class="navbar-nav ms-auto">
                     <li class="nav-item"><a class="nav-link" href="index.php">Inicio</a></li>
                     <li class="nav-item"><a class="nav-link" href="registro.php">Registrar</a></li>
-                    <li class="nav-item"><a class="nav-link" href="estadisticas.html">Estadísticas</a></li>
+                    <li class="nav-item"><a class="nav-link" href="estadisticas.php">Estadísticas</a></li>
                     <li class="nav-item"><a class="nav-link" href="perfil.html">Perfil</a></li>
                 </ul>
             </div>
@@ -100,7 +100,8 @@ try {
                     <?php foreach ($actividades as $actividad): ?>
                         <div class="card post-card shadow-sm mb-3">
                             <div class="card-body">
-                                <div class="d-flex align-items-center mb-3">
+                                <div class="d-flex align-items-center justify-content-between mb-3">
+                                <div class="d-flex align-items-center">
                                     <div class="user-avatar text-white me-3" style="background-color: var(--primary-color);">
                                         <?php if($actividad['tipo'] == 'Fuerza'): ?>
                                             <i class="fas fa-dumbbell"></i>
@@ -113,14 +114,29 @@ try {
                                     
                                     <div>
                                         <h6 class="mb-0 fw-bold">
-                                            <?php echo htmlspecialchars($nombre_usuario); ?> 
-                                            <span class="text-muted fw-normal">registró <?php echo htmlspecialchars($actividad['tipo']); ?></span>
+                                            <?php echo htmlspecialchars($actividad['tipo']); ?>
                                         </h6>
                                         <small class="text-muted">
                                             <?php echo date('d/m/Y', strtotime($actividad['fecha'])); ?>
                                         </small>
                                     </div>
                                 </div>
+
+                                <div class="d-flex gap-2">
+                                    <a href="editar_entreno.php?id=<?php echo $actividad['id']; ?>" 
+                                    class="btn btn-outline-primary btn-sm rounded-circle" 
+                                    title="Editar">
+                                        <i class="fas fa-pencil-alt"></i>
+                                    </a>
+
+                                    <a href="eliminar_entreno.php?id=<?php echo $actividad['id']; ?>" 
+                                    class="btn btn-outline-danger btn-sm rounded-circle" 
+                                    onclick="return confirm('¿Seguro que quieres borrar este entreno?');"
+                                    title="Eliminar">
+                                        <i class="fas fa-trash-alt"></i>
+                                    </a>
+                                </div>
+                            </div>
 
                                 <div class="row bg-light rounded p-3 mx-1 mb-3">
                                     <div class="col-4 text-center border-end">
@@ -141,7 +157,6 @@ try {
                                     <div class="col-4 text-center">
                                         <small class="d-block text-muted">Sensación</small>
                                         <?php 
-                                            // Color del badge según intensidad
                                             $badgeColor = 'bg-success';
                                             if ($actividad['sensacion'] >= 8) $badgeColor = 'bg-danger';
                                             elseif ($actividad['sensacion'] >= 5) $badgeColor = 'bg-warning';
