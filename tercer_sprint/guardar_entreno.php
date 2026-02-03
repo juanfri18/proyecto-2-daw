@@ -21,8 +21,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $sensacion = $_POST['sensacion'];
     $distancia = !empty($_POST['distancia']) ? floatval($_POST['distancia']) : 0;
 
-    // CÁLCULO AUTOMÁTICO DE CALORÍAS
-    // Fórmula aproximada (METs estimados)
+    // CÁLCULO DE CALORÍAS
     $calorias_calculadas = 0;
     
     if ($tipo_db === 'Carrera') {
