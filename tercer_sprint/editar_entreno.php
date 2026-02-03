@@ -2,7 +2,6 @@
 session_start();
 require_once 'configuracion/conexion.php';
 
-// 1. Verificar login
 if (!isset($_SESSION['user_id'])) {
     header("Location: login.html");
     exit();
@@ -17,7 +16,7 @@ if (!isset($_GET['id'])) {
 $id_entreno = $_GET['id'];
 $usuario_id = $_SESSION['user_id'];
 
-// Consultamos los datos actuales para rellenar el formulario
+// Consulto los datos actuales para rellenar el formulario
 $stmt = $pdo->prepare("SELECT * FROM entrenamientos WHERE id = :id AND usuario_id = :uid");
 $stmt->execute([':id' => $id_entreno, ':uid' => $usuario_id]);
 $entreno = $stmt->fetch(PDO::FETCH_ASSOC);
@@ -26,8 +25,8 @@ if (!$entreno) {
     die("Entrenamiento no encontrado.");
 }
 
-// Preparamos valores para el HTML
-$tipo_actual = strtolower($entreno['tipo']); // 'fuerza', 'carrera', 'caminata'
+// Preparo valores para el HTML
+$tipo_actual = strtolower($entreno['tipo']); 
 // Ajuste pequeño porque en BD es 'Carrera' y en value es 'carrera'
 if($entreno['tipo'] == 'Carrera') $tipo_actual = 'carrera';
 if($entreno['tipo'] == 'Caminata') $tipo_actual = 'caminata';
@@ -45,7 +44,7 @@ if($entreno['tipo'] == 'Fuerza') $tipo_actual = 'fuerza';
     <style>
         body { background-color: #f4f6f9; font-family: 'Segoe UI', sans-serif; }
         .card-custom { border: none; border-radius: 15px; box-shadow: 0 10px 30px rgba(0,0,0,0.1); }
-        .btn-save { background-color: #ffc107; color: #000; font-weight: bold; border: none; } /* Amarillo para editar */
+        .btn-save { background-color: #ffc107; color: #000; font-weight: bold; border: none; } 
         .btn-save:hover { background-color: #e0a800; }
         .form-section { display: none; margin-top: 20px; }
     </style>
@@ -122,8 +121,6 @@ if($entreno['tipo'] == 'Fuerza') $tipo_actual = 'fuerza';
             document.getElementById('sec-cardio').style.display = (val === 'carrera' || val === 'caminata') ? 'block' : 'none';
             
             // Si pasamos de fuerza a cardio, deshabilitamos el input de tiempo de fuerza para que no se envíe duplicado (y viceversa)
-            // En este ejemplo simple usamos el mismo name="tiempo" en ambos, así que PHP cogerá el último válido.
-            // Para simplificar, asumimos que el usuario rellena el que ve.
         }
         // Ejecutar al cargar para mostrar el correcto según DB
         window.onload = toggleModule;

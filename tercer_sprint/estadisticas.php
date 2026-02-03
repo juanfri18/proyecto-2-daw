@@ -14,7 +14,7 @@ try {
     // LÓGICA DE NEGOCIO 
 
     // Calcular TOTALES usando funciones de agregación SQL
-    // Usamos IFNULL para que si no hay datos devuelva 0 en vez de NULL 
+    // Uso IFNULL para que si no hay datos devuelva 0 en vez de NULL 
     $sql = "SELECT 
                 IFNULL(SUM(distancia_km), 0) as total_km,
                 IFNULL(SUM(duracion_minutos), 0) as total_min,
@@ -158,7 +158,7 @@ try {
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script>
-        // Inyectamos los datos de PHP a JS
+        // Inyecto los datos de PHP a JS
         const labels = <?php echo json_encode($labels); ?>;
         const data = <?php echo json_encode($dataPoints); ?>;
 

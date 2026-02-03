@@ -10,9 +10,9 @@ if (!isset($_SESSION['user_id'])) {
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     
-    // Recogemos el ID (¡Importante! viaja oculto en el formulario)
+    // Recogemos el ID 
     $id = $_POST['id'];
-    $usuario_id = $_SESSION['user_id']; // Para seguridad extra
+    $usuario_id = $_SESSION['user_id']; 
 
     // Recogemos datos corregidos
     $fecha = $_POST['fecha'];
@@ -28,7 +28,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     try {
         // 2. Sentencia UPDATE
-        // Actualizamos SOLO si el id y el usuario coinciden (seguridad)
+        // Actualizamos SOLO si el id y el usuario coinciden 
         $sql = "UPDATE entrenamientos 
                 SET fecha = :fecha, 
                     tipo = :tipo, 

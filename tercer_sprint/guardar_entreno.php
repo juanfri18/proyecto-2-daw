@@ -21,7 +21,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $sensacion = $_POST['sensacion'];
     $distancia = !empty($_POST['distancia']) ? floatval($_POST['distancia']) : 0;
 
-    // --- FT-33: CÁLCULO AUTOMÁTICO DE CALORÍAS ---
+    // CÁLCULO AUTOMÁTICO DE CALORÍAS
     // Fórmula aproximada (METs estimados)
     $calorias_calculadas = 0;
     
@@ -44,7 +44,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     }
 
     try {
-        // Insertamos incluyendo el campo 'calorias' calculado
         $sql = "INSERT INTO entrenamientos (usuario_id, fecha, tipo, duracion_minutos, sensacion, distancia_km, calorias) 
                 VALUES (:uid, :fecha, :tipo, :duracion, :sensacion, :distancia, :calorias)";
         

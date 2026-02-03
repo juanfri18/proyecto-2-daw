@@ -1,6 +1,6 @@
 <?php
 session_start();
-require_once 'configuracion/conexion.php'; // 1. Traemos la conexión a la BD
+require_once 'configuracion/conexion.php'; // 1. Traigo la conexión a la BD
 
 // 2. Seguridad: Si no está logueado, fuera
 if (!isset($_SESSION['user_id'])) {
