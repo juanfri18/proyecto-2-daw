@@ -4,7 +4,7 @@ require_once 'configuracion/conexion.php';
 
 // 1. Seguridad
 if (!isset($_SESSION['user_id'])) {
-    header("Location: login.html");
+    header("Location: login.php");
     exit();
 }
 

@@ -22,7 +22,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         exit();
     } else {
         // LOGIN INCORRECTO
-        header("Location: login.html?error=1");
+        header("Location: login.php?error=1");
         exit();
     }
 }

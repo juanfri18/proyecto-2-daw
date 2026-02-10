@@ -4,7 +4,7 @@ require_once 'configuracion/conexion.php'; // 1. Traigo la conexión a la BD
 
 // 2. Seguridad: Si no está logueado, fuera
 if (!isset($_SESSION['user_id'])) {
-    header("Location: login.html");
+    header("Location: login.php");
     exit();
 }
 
@@ -61,7 +61,7 @@ try {
                     <li class="nav-item"><a class="nav-link" href="index.php">Inicio</a></li>
                     <li class="nav-item"><a class="nav-link" href="registro.php">Registrar</a></li>
                     <li class="nav-item"><a class="nav-link" href="estadisticas.php">Estadísticas</a></li>
-                    <li class="nav-item"><a class="nav-link" href="perfil.html">Perfil</a></li>
+                    <li class="nav-item"><a class="nav-link" href="perfil.php">Perfil</a></li>
                 </ul>
             </div>
         </div>
