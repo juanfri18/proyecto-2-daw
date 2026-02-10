@@ -1,0 +1,37 @@
+DOCUMENTO DE PRUEBAS MANUALES - SPRINT 3
+Proyecto: FitnessTracker
+Fecha: 10/02/2026
+
+---------------------------------------------------------
+CASO DE PRUEBA 1: Validación de formulario vacío
+---------------------------------------------------------
+DESCRIPCIÓN: Intentar registrar un entrenamiento sin rellenar la fecha ni el tipo.
+INPUT (Datos de entrada): 
+ - Fecha: [Vacío]
+ - Tipo: [Sin seleccionar]
+ - Tiempo: 30
+OUTPUT ESPERADO: El sistema no debe guardar en BD y debe mostrar un error.
+RESULTADO OBTENIDO: El sistema redirigió a 'registro.php?error=campos_vacios'.
+ESTADO: ✅ PASADO
+
+---------------------------------------------------------
+CASO DE PRUEBA 2: Cálculo automático de calorías (Caminata)
+---------------------------------------------------------
+DESCRIPCIÓN: Verificar que la fórmula de caminata (4.5 kcal/min) funciona.
+INPUT (Datos de entrada): 
+ - Tipo: Caminata
+ - Tiempo: 100 minutos
+OUTPUT ESPERADO: 100 * 4.5 = 450 kcal guardadas en la base de datos.
+RESULTADO OBTENIDO: En la base de datos se guardó el valor '450'.
+ESTADO: ✅ PASADO
+
+---------------------------------------------------------
+CASO DE PRUEBA 3: Visualización de Progreso de Objetivos
+---------------------------------------------------------
+DESCRIPCIÓN: Verificar que la barra de progreso reacciona a los entrenamientos.
+INPUT (Datos de entrada): 
+ - Objetivo actual: "Frecuencia Semanal" de 4 días.
+ - Acción: Registrar 2 entrenamientos con fecha de hoy.
+OUTPUT ESPERADO: La barra de progreso en 'estadisticas.php' debe marcar 50%.
+RESULTADO OBTENIDO: La barra muestra 50% y color azul (primary).
+ESTADO: ✅ PASADO
