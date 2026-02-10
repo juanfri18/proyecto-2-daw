@@ -40,6 +40,8 @@ if (!isset($_SESSION['user_id'])) {
                     <li class="nav-item"><a class="nav-link active" href="registro.php">Registrar</a></li>
                     <li class="nav-item"><a class="nav-link" href="estadisticas.php">Estadísticas</a></li>
                     <li class="nav-item"><a class="nav-link" href="perfil.html">Perfil</a></li>
+                    <li class="nav-item"><a class="nav-link text-warning" href="logout.php"><i class="fas fa-sign-out-alt"></i> Salir</a></li>
+
                 </ul>
             </div>
         </div>
