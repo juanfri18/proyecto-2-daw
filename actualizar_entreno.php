@@ -22,9 +22,20 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     if ($modulo === 'carrera') $tipo_db = 'Carrera';
     if ($modulo === 'caminata') $tipo_db = 'Caminata';
 
-    $duracion = !empty($_POST['tiempo']) ? $_POST['tiempo'] : 0;
-    $sensacion = $_POST['sensacion'];
-    $distancia = !empty($_POST['distancia']) ? $_POST['distancia'] : 0;
+    $duracion = !empty($_POST['tiempo']) ? floatval($_POST['tiempo']) : 0;
+    $sensacion = !empty($_POST['sensacion']) ? intval($_POST['sensacion']) : 5;
+    $distancia = !empty($_POST['distancia']) ? floatval($_POST['distancia']) : 0;
+
+    // CÁLCULO DE CALORÍAS (FT-33)
+    $calorias_calculadas = 0;
+    if ($tipo_db === 'Carrera') {
+        $calorias_calculadas = $duracion * 11; 
+    } elseif ($tipo_db === 'Caminata') {
+        $calorias_calculadas = $duracion * 4.5;
+    } elseif ($tipo_db === 'Fuerza') {
+        $calorias_calculadas = $duracion * 6.5;
+    }
+    $calorias_calculadas = round($calorias_calculadas);
 
     try {
         // 2. Sentencia UPDATE
@@ -34,7 +45,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     tipo = :tipo, 
                     duracion_minutos = :duracion, 
                     sensacion = :sensacion, 
-                    distancia_km = :distancia
+                    distancia_km = :distancia,
+                    calorias = :calorias
                 WHERE id = :id AND usuario_id = :uid";
         
         $stmt = $pdo->prepare($sql);
@@ -44,6 +56,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             ':duracion' => $duracion,
             ':sensacion' => $sensacion,
             ':distancia' => $distancia,
+            ':calorias' => $calorias_calculadas,
             ':id' => $id,
             ':uid' => $usuario_id
         ]);
@@ -52,7 +65,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         exit();
 
     } catch (PDOException $e) {
-        die("Error al actualizar: " . $e->getMessage());
+        error_log("Error BD al actualizar: " . $e->getMessage());
+        header("Location: index.php?error=db_error");
+        exit();
     }
 }
 ?>

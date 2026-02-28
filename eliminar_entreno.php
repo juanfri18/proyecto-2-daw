@@ -23,7 +23,9 @@ if (isset($_GET['id'])) {
         exit();
 
     } catch (PDOException $e) {
-        die("Error al eliminar: " . $e->getMessage());
+        error_log("Error al eliminar: " . $e->getMessage());
+        header("Location: index.php?error=db_error");
+        exit();
     }
 } else {
     // Si intentan entrar sin ID, los echo
